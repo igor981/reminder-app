@@ -1,19 +1,27 @@
-const express = require('express')
-const { Socket } = require('socket.io')
-const cors = require('cors')
-const http = require('http');
-
+import express from 'express';
+import { Socket } from 'socket.io';
+import {config} from 'dotenv'
+import mongoose from 'mongoose';
+import cors from 'cors';
+import http from 'http';
+import authRouter from './routes/auth.routes'
+config()
+mongoose.connect(process.env.MONGOOSE_CONNECT || '')
+const corsOptions: cors.CorsOptions = {
+    origin: "http://localhost:3000"
+};
 const app = express();
 const port = 3001;
+  
+app.use(cors(corsOptions))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(cors)
+app.use('/auth', authRouter)
+
+
 const server = http.createServer(app)
-const io = new Socket(server,)
-
-
-app.get('/', (req, res) => {
-    res.send('Hello world')
-})
+//const io = new Socket(server,)
 
 
 
