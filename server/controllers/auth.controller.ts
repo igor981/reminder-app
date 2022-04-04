@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import User from '../models/user.model'
+import User from '../models/user.model';
+import jwt from 'jsonwebtoken';
 
 export const signUp = async (req: Request, res: Response) => {
     try {
@@ -38,7 +39,8 @@ export const logIn = async (req: Request, res: Response) => {
             password: req.body.password
         })
         if(user){
-            res.send({user: user})
+            const token = jwt.sign( JSON.stringify(user), 'secret123')
+            res.send({user: token})
             return
         } else {
             res.send({error: 'The account cannot be found'})

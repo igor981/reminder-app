@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
-const User = ({user}: {user:any}) => {
+const User = () => {
     const navigate = useNavigate()
+    const user = useSelector((state: any ) => state.user)
     
     useEffect(() => {    
-        console.log(user);
+    
             
         if (!user){
             navigate('/login')

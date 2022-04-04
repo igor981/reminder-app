@@ -1,8 +1,7 @@
 .navbar {
     position: fixed;
     width: 100vw;
-    height: 40px;
-    background-color: red;
+    height: 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -11,27 +10,37 @@
 .navbar__links {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 
+}
+
+.navbar__logo__text {
+    margin: 5px;
+    font-size: 26px;
+    font-weight: 800;
 }
 
 .navbar__logo {
     height: 100%;
-    width: 80px;
-    background-color: white;
+    color: white;
+    padding: 0px 20px;
+    background-color: blue;
     display: flex;
     align-items: center;
     justify-content: center
 }
 
 .navbar__links__button{
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0px 20px;
-    width: 60px;
+    width: 90px;
     height: 40px;
     background-color: blue;
+    border-radius: 20px;
 }
 
 .navbar__links__button a {

@@ -1,5 +1,6 @@
 import axios from "axios"
 import {v4 as uuidv4} from 'uuid';
+import jwt_decode from "jwt-decode";
 const URL:string = 'http://localhost:3001/auth/'
 export const loginService = async (username: string, password: string) => {
     try {
@@ -7,11 +8,23 @@ export const loginService = async (username: string, password: string) => {
             username: username,
             password: password
         })
-        return user.data
+
+
+        
+        if (user.data.user) {
+            localStorage.setItem('token', user.data.user)
+            const decoded = jwt_decode(user.data.user)
+        
+            return decoded
+        } else {
+
+            return user.data
+        }
+        
 
         
     } catch (error: any) {
-        return error.message
+      return error.message;
     }   
 }
 export const registerService = async (username: string, password: string,fname: string,lname: string,) => {
@@ -35,4 +48,5 @@ export const registerService = async (username: string, password: string,fname: 
 
 export const logOut = () => {
     localStorage.removeItem('reminder-user')
+    localStorage.removeItem('token')
 }

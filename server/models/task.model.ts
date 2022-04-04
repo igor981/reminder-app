@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const Task = new mongoose.Schema({
     taskId: {type: String, required: true},
+    creatorId: {type: String, required: true},
     category: { type: String, required: true},
     task: { type: String, required: true},
     description: { type: String, required: true},

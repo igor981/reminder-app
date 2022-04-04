@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginService } from '../../service/authService'
+import { useDispatch } from 'react-redux'
+import { loginAction } from '../../redux/actions/user.actions'
 import './Login.styles.css'
 
 
@@ -9,6 +11,8 @@ const Login = ({handleUserData}:{handleUserData: any}) => {
     const [password, setPassword] = useState<string>('')
     const [showMessage, setShowMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
+
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -28,15 +32,11 @@ const Login = ({handleUserData}:{handleUserData: any}) => {
         const userFetch = await loginService(username, password)
         
         if (userFetch.error){
-            console.log('reach');
-            
-            setShowMessage(true)
+              setShowMessage(true);
             setMessage(userFetch.error)
-        } else {
-            console.log('false');
-            
-            localStorage.setItem('reminder-user', JSON.stringify(userFetch.user))
-            handleUserData(userFetch.user)
+        } else {           
+            localStorage.setItem('reminder-user', JSON.stringify(userFetch))
+            dispatch(loginAction(userFetch))
             navigate('/')
         } 
     }

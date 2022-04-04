@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from 'react'
+import {logOutAction} from '../../redux/actions/user.actions'
 import './Navbar.styles.css'
 import { BrowserRouter as Router, Route, Link, useNavigate } from "react-router-dom";
 import { logOut } from '../../service/authService';
+import { useSelector, useDispatch} from 'react-redux';
 
 
-const Navbar = ({handleUserData, user}:{user: any, handleUserData: any}) => {
+const Navbar = () => {
+  const user = useSelector((state: any ) => state.user)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleLogOut =() => {
         logOut()
-        navigate('/login')
-        handleUserData(null)
+        dispatch(logOutAction())
+        navigate('/login')        
     }
 
     useEffect(() => {
@@ -23,11 +27,11 @@ const Navbar = ({handleUserData, user}:{user: any, handleUserData: any}) => {
       <div>
       <nav className='navbar'>
           <div className='navbar__logo'>
-              <p>Reminders</p>
+              <p className='navbar__logo__text'>Reminders</p>
           </div>
           <div className='navbar__links'>
               <div className='navbar__links__button'>
-              <Link  to='/'>Home</Link>
+              <Link  to='/reminders'>Reminders</Link>
               </div>
               {user ? (
                   <>
