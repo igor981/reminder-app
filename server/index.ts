@@ -6,6 +6,7 @@ import cors from 'cors';
 import http from 'http';
 import authRouter from './routes/auth.routes'
 import reminderRouter from './routes/reminder.routes'
+import {allReminders, getReminder, updateReminder} from './controllers/reminder.controller'
 config()
 mongoose.connect(process.env.MONGOOSE_CONNECT || '')
 const corsOptions: cors.CorsOptions = {
@@ -32,9 +33,28 @@ const io = new Server(server, {
 })
 io.on("connection", (socket: any) => {
     socket.on('getTasks', async (data: any) => {
-        console.log('user connected' + data);
+        const tasks = await allReminders(data)
+        socket.emit("sendTasks", tasks);
         
-        return 'testing io'
+    })
+
+
+    socket.on('update-task', async (data: any, cb: any) => {
+        
+        const updatedTask = await updateReminder(data)      
+       
+        socket.to(data.taskId).emit('getUpdatedTask', data)
+        cb(data.category, updatedTask.category)
+
+    })
+
+    socket.on('join-room', async (room: string, logger: any) => {
+        console.log(room);
+        
+        socket.join(room)
+        const task = await getReminder(room)        
+        io.to(room).emit('sendTask', task)
+        logger('connected', room)
     })
 
 })

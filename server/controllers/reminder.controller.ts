@@ -4,17 +4,6 @@ import jwt from 'jsonwebtoken';
 
 export const createReminder = async (req: Request, res: Response) => {
     try {
-      
-        /* const newReminder = await axios.post(URL + 'create-reminder', {
-            taskId,
-            creatorId,
-            category,
-            task,
-            desc,
-            deadline,
-            cost,
-            visibility
-        }) */
             const newTask = await Task.create({
                 taskId: req.body.taskId,
                 creatorId: req.body.creatorId,
@@ -37,4 +26,33 @@ export const createReminder = async (req: Request, res: Response) => {
         
     }
     
+}
+
+export const allReminders = async (userId: string) => {
+    try {
+        const tasks = await Task.find({creatorId: userId})
+        return tasks
+    } catch (error) {
+        return error
+    }
+
+}
+
+export const getReminder = async (taskId: string) => {
+    try {
+        const task = await Task.findOne({taskId: taskId})
+        return task
+    } catch (error) {
+        return error
+    }   
+}
+
+
+export const updateReminder = async (task: any) => {
+    try {
+        const updatedTask = await  Task.findOneAndReplace({taskId: task.taskId}, task)
+        return updatedTask
+    } catch (error) {
+        return error
+    }
 }

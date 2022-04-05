@@ -6,11 +6,10 @@ import Register from './Pages/Register/Register';
 import Navbar from './Components/Navbar/Navbar';
 import UserPage from './Pages/User/User';
 import { Reminders } from './Pages/Reminders/Reminders';
-import io from 'socket.io-client'
+import {io, Socket} from 'socket.io-client'
 
 
-//const socket: any = io.connect("http://localhost:3001");
-function App() {
+export const socket: Socket = io("ws://localhost:3001");function App() {
 
 
 

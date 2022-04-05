@@ -24,40 +24,45 @@ const Navbar = () => {
     }, [])
     
   return (
-      <div>
-      <nav className='navbar'>
-          <div className='navbar__logo'>
-              <p className='navbar__logo__text'>Reminders</p>
+    <div>
+      <nav className="navbar">
+        <div className="navbar__logo">
+          <p className="navbar__logo__text">Reminder.io</p>
+        </div>
+        <div className="navbar__links">
+          <div className="navbar__links__button">
+            <Link to="/reminders">
+              <b>Reminders</b>
+            </Link>
           </div>
-          <div className='navbar__links'>
-              <div className='navbar__links__button'>
-              <Link  to='/reminders'>Reminders</Link>
+          {user ? (
+            <>
+              <div className="navbar__links__button">
+                <Link to="/profile">Profile</Link>
               </div>
-              {user ? (
-                  <>
-                <div className='navbar__links__button'>
-                <Link  to='/profile'>Profile</Link>
-                </div>
-              <div onClick={() => handleLogOut()}className='navbar__links__button'>
-                  <p>Log out</p>
+              <div
+                onClick={() => handleLogOut()}
+                className="navbar__links__button"
+              >
+                <p>
+                  <b>Log out</b>
+                </p>
               </div>
-                  </>
-              ) :
-              (
-                <>
-              <div className='navbar__links__button'>
-              <Link to='/login'>Login</Link>
+            </>
+          ) : (
+            <>
+              <div className="navbar__links__button">
+                <Link to="/login">Login</Link>
               </div>
-                <div className='navbar__links__button'>
-                <Link  to='/register'>Register</Link>
-                </div>
-                </>
-              )
-              }
-          </div>
+              <div className="navbar__links__button">
+                <Link to="/register">Register</Link>
+              </div>
+            </>
+          )}
+        </div>
       </nav>
-      </div>
-  )
+    </div>
+  );
 }
 
 export default Navbar

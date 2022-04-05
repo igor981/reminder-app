@@ -1,5 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap');
+
+.home-content{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: roboto;
+}
 .reminder__button {
-    width: 90px;
-    background-attachment: blue;
-    height: 50px;
+    width: 100%;
+    box-shadow: rgba(23, 32, 41, 0.2) 0px 8px 24px 0px;
+    background-color: #2ea1ee;
+    height: 25px;
+    font: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px;
+    padding: 10px 0px;
+}
+
+.reminder__button a {
+    color: white;
+    font: 12px;
+    text-decoration: none;
+    padding: 20px;
+}
+
+
+.home-content__buttons {
+    height: 100%;
+    width: 180px;
+    background-color: rgb(241, 241, 241);
+    left: 0px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgb(144, 144, 144);
+
+}
+
+.reminder__button:hover {
+    opacity: 80%;
 }

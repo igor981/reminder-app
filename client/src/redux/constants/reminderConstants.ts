@@ -1,0 +1,2 @@
+export const SET_REMINDER = 'SET_REMINDER'
+export const UPDATE_REMINDER = 'UPDATE_REMINDER'

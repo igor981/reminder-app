@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 
 const SubTask = new mongoose.Schema({
-    taskId: {type: String, required: true},
+    subTaskId: {type: String, required: true},
+    parentId: {type: String, required: true},
     category: { type: String, required: true},
     task: { type: String, required: true},
     description: { type: String, required: true},
