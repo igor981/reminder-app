@@ -1,9 +1,12 @@
 import React, {useEffect,useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchedReminder, updateReminder } from '../../redux/actions/reminder.actions';
 import './ReminderCard.styles.css'
 import { socket } from '../../App';
+
+import SubReminderCreate from './SubReminder/SubReminderCreate';
+import SubTasks from './SubReminder/SubTasks';
 
 
 
@@ -11,25 +14,36 @@ import { socket } from '../../App';
 const ReminderCard = () => {
     const dispatch = useDispatch()
     const [editMode, setEditMode] = useState(false)
+    const [sumState, setSumState] = useState(0)
+    const [newSubtask, setNewSubtask] = useState(false)
     const reminder = useSelector((state: any ) => state.reminder)
     const {reminderId} = useParams()
     const uuidReg = /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/i
+
+    const navigate = useNavigate()
 
     
     const logger = (message: string, message2: string) => {
         console.log(message, message2);
         
     }
+
+    const changeSum = (cost:number) => {
+      const newSum = sumState + cost
+      setSumState(newSum)
+
+    }
+
+    const deleteReminder = () => {     
+      socket.emit('delete-reminder', reminder.taskId)
+      navigate('/404')
+    }
     
     const updateSocket = (updatedReminder: any) => {
-
         socket.emit('update-task', updatedReminder, logger)
     }
     
-    const handleChange = (e: any) => {
-
-        console.log(e.target.id, e.target.value);
-        
+    const handleChange = (e: any) => {        
         let updatedReminder = {
             ...reminder,
             [e.target.id]: e.target.value
@@ -40,24 +54,29 @@ const ReminderCard = () => {
     }
     
 
-    
     useEffect(() => {
-        console.log(reminder);
-        
-        if (!uuidReg.test(reminderId || '')) {
-            console.log('this is wrong');
+      socket.on('deleted-reminder', async () => {
+        navigate('/404')
+      })
+      socket.on('sendTask', async (data) => {
+          if (!data.error){
+            dispatch(fetchedReminder(data))   
+          } else {
+            navigate('/404')
+          }  
+        })
+        socket.on("getUpdatedTask", async (data) => {
+          dispatch(updateReminder(data));
+        });
+      }, [socket])
+      
+      useEffect(() => {
+        if (!uuidReg.test(reminderId || "")) {
+          navigate("/404");
         } else {
-            socket.emit('join-room', reminderId, logger )              
-            socket.on('sendTask', async (data) => {
-                dispatch(fetchedReminder(data))   
-            })
-            socket.on("getUpdatedTask", async (data) => {
-                console.log(data, 'task');
-                
-              dispatch(updateReminder(data));
-            });
-        }     
-    }, [socket])
+          socket.emit("join-room", reminderId, logger);
+        }
+      }, []);
     
   return (
     <div className="remindercard">
@@ -106,14 +125,26 @@ const ReminderCard = () => {
           )}
           <p>
             {" "}
-            <b>Sum:</b> 0
+            <b>Total sum:</b> {sumState}
           </p>
-          <button
-            className="edit-button"
-            onClick={() => setEditMode(!editMode)}
-          >
-            Edit
-          </button>
+          <p>
+            {" "}
+            <b>Cost:</b> {reminder.cost}
+          </p>
+          <div className="header-buttons">
+            <button
+              className="edit-button"
+              onClick={() => setEditMode(!editMode)}
+            >
+              Edit
+            </button>
+            <button
+              className="edit-button delete"
+              onClick={() => deleteReminder()}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
       <div className="remindercard__content">
@@ -146,7 +177,32 @@ const ReminderCard = () => {
         )}
       </div>
       <div className="remindercard__subtasks">
-          
+        <div className="remindercard__subtasks__header">
+          <h2 className="subtask-title">Subtasks:</h2>
+          <button
+            className="subtask-create-button"
+            onClick={() => setNewSubtask(!newSubtask)}
+          >
+            {" "}
+            Add subtask
+          </button>
+          {newSubtask ? (
+            <SubReminderCreate
+              taskId={reminder.taskId}
+              setNewSubtask={setNewSubtask}
+            />
+          ) : null}
+        </div>
+        <div className="remindercard__subtasks__list">
+          <ul className="subtasks__ul">
+            {reminder.subtasks !== undefined && reminder.subtasks.length > 0
+              ? reminder.subtasks.map((item: any, index: any) => {
+                return item ? <SubTasks key={index} item={item} changeSum={changeSum} /> : null
+              }
+                )
+              : null}
+          </ul>
+        </div>
       </div>
     </div>
   );

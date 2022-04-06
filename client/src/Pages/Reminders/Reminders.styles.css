@@ -7,13 +7,17 @@
     align-items: center;
     justify-content: center;
     font-family: roboto;
+    background-color: #3e528f;;
+
 }
 .reminder__button {
-    width: 100%;
+    width: 80%;
     box-shadow: rgba(23, 32, 41, 0.2) 0px 8px 24px 0px;
-    background-color: #2ea1ee;
+    border-radius: 5px;
+    background-color: #3664F4;;
     height: 25px;
-    font: 10px;
+    font-size: 14px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,15 +35,14 @@
 
 .home-content__buttons {
     height: 100%;
-    width: 180px;
-    background-color: rgb(241, 241, 241);
+    width: 100px;
+    background-color: #192342;;
     left: 0px;
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid rgb(144, 144, 144);
 
 }
 

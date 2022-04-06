@@ -2,16 +2,19 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { registerService } from '../../service/authService'
 import './Register.styles.css'
+import { useSelector } from 'react-redux'
 
 
 
-const Register = ({handleUserData}:{handleUserData: any}) => {     
+const Register = () => {     
     const [username, setUsername] = useState<string>('')
     const [fName, setFname] = useState<string>('')
     const [lName, setLName] = useState<string>("");
     const [password, setPassword] = useState<string>('')
     const [showMessage, setShowMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
+    const user = useSelector((state: any ) => state.user)
+
 
     const navigate = useNavigate()
 
@@ -45,7 +48,6 @@ const Register = ({handleUserData}:{handleUserData: any}) => {
               setMessage(userFetch.error)
           } else {              
               localStorage.setItem('reminder-user', JSON.stringify(userFetch.user))
-              handleUserData(userFetch.user)
               navigate('/')
           } 
 
@@ -56,26 +58,59 @@ const Register = ({handleUserData}:{handleUserData: any}) => {
     }
 
     useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
         setShowMessage(false);
         setMessage('')
     }, [])
     
   return (
-    <div className='login__container'>
-        <form className='login__container__form' onSubmit={(e) => handleRegister(e)}>
-            <label htmlFor='username-input'>Username</label>
-            <input id='username-input' onChange={(e) => handleUsernameInput(e.target.value)} type='text'/>
-            <label htmlFor='password-input'>Password</label>
-            <input id='password-input' onChange={(e) => handlePasswordInput(e.target.value)} type='password'/>
-            <label htmlFor='fname-input'>First name</label>
-            <input id='fname-input' onChange={(e) => handleFirstNameInput(e.target.value)} type='text'/>
-            <label htmlFor='lname-input'>Last name</label>
-            <input id='lname-input' onChange={(e) => handlelastNameInput(e.target.value)} type='text'/>
-            <button>Register</button>
-        </form>
-        {message && message.length > 0 ? <p>{message}</p> : null }
+    <div className="register__container">
+      <form
+        className="login__container__form"
+        onSubmit={(e) => handleRegister(e)}
+      >
+        <div className="input-field">
+          <label htmlFor="username-input">Username</label>
+          <input
+            id="username-input"
+            onChange={(e) => handleUsernameInput(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="password-input">Password</label>
+          <input
+            id="password-input"
+            onChange={(e) => handlePasswordInput(e.target.value)}
+            type="password"
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="fname-input">First name</label>
+          <input
+            id="fname-input"
+            onChange={(e) => handleFirstNameInput(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="lname-input">Last name</label>
+          <input
+            id="lname-input"
+            onChange={(e) => handlelastNameInput(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className="input-field"></div>
+        <div className="login__container__button">
+          <button>Register</button>
+        </div>
+      </form>
+      {message && message.length > 0 ? <p>{message}</p> : null}
     </div>
-  )
+  );
 }
 
 export default Register

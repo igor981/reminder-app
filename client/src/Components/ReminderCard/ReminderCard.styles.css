@@ -2,23 +2,29 @@
     border: 2px solid rgba(0, 0, 0, 0.048);
     border-radius: 20px;
     width: 600px;
-    height: 600px;
+    height: 690px;
     margin: 80px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .remindercard__header {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.114);
-    height: 20%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    height: 25%;
 }
 .remindercard__header__title {
+    color: black;
+    background-color: rgb(234, 234, 234);
     display: flex;
+    font-size: 13px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 70%;
+    overflow: hidden;
 }
 .remindercard__header__info {
     display: flex;
@@ -27,7 +33,7 @@
     align-items: center;
     justify-content: center;
     width: 30%;
-    background-color: rgb(232, 232, 232);
+    background-color: #8d9ac3;;
 }
 .remindercard__header__info p {
     margin: 5px;
@@ -58,17 +64,243 @@
     border: 0px solid green;
     border-radius: 10px;
     background-color: rgb(56, 230, 105);
+    margin: 0px 5px
 }
 .edit-button:hover {
     opacity: 80%;
 }
 
 .remindercard__content {
-    height: 40%;
-    background-color: red;
+    background-color: rgb(255, 255, 255);
+    height: 20%;
 }
 
 .remindercard__subtasks {
-    height: 40%;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+}
+.remindercard__subtasks__header {
+    width: 100%;
+    height: 16%;
+    border-top: 1px solid rgba(0, 0, 0, 0.242);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.242);
+    background-color: rgb(227, 235, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.subtask-title {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.subtask-create-button {
+    color: white;
+    text-align: center;
+    width: 120px;
+    height: 30px;
+    border: 0px solid green;
+    border-radius: 10px;
+    margin-right: 20px;
+    padding: 7px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(56, 230, 105);
+    border-color: rgb(41, 186, 82);;
+}
+
+.subtask-create-button:hover {
+    opacity: 80%;
+}
+
+.remindercard__subtasks__list {
+    background-color: rgb(250, 250, 250);
+    height: 100%;
+    overflow-y: scroll;
+   
+
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 20px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    border-radius: 20px;
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #8694dc;
+}
+
+
+
+.subtask-container {
+    position: absolute;
+    top: 20%;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: rgb(255, 255, 255);
+    width: 500px;
+    height: 450px;
+}
+
+
+
+.taskform {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtaskform__task-info__task {
+    height: 100%;
+    width: 100%;
     background-color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.taskform-container {
+    width: 400px;
+    height: 450px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+   
+    flex-direction: column;
+}
+
+.subtaskform__task-info {
+    width: 400px;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.161);
+}
+.subtaskform__task-info__task {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.subtaskform__task-info__info {
+    border-left: 1px solid rgba(0, 0, 0, 0.161);
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(237, 237, 237);
+}
+
+
+.cost-input {
+    width: 40px;
+}
+
+.taskform__input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2px;
+    font-size: 16px;
+}
+
+.cost {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtask-textarea {
+  width: 80%;
+  height: 200px;
+}
+
+
+.subtaskform__desc {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start ;
+    justify-content: center;
+}
+
+.subtaskform__description label {
+    margin: 6px 10px;
+}
+
+.subtaskform__description textarea {
+    width: 90%;
+    height: 90%;
+    margin: 3px 10px;
+    margin-bottom: 20px;
+}
+
+.create-reminder-div {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+}
+
+
+.taskform-title {
+    margin: 5px;
+}
+
+.subtaskform__button {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addsubtask-button {
+    color: white;
+    width: 120px;
+    height: 30px;
+    border: 0px solid green;
+    border-radius: 10px;
+    background-color: rgb(56, 230, 105);
+}
+
+.subtasks__ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

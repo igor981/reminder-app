@@ -10,3 +10,20 @@ export const updateReminder = (reminder: object) => {
         payload: reminder
     }
 }
+export const deleteReminder = () => {
+    return {
+        type: 'DELETE_REMINDER'
+    }
+}
+export const deleteSubtask = (subtaskId: string) => {
+    return {
+        type: 'DELETE_SUBTASK',
+        payload: subtaskId
+    }
+}
+export const addSubtask = (subtaskId: string) => {
+    return {
+        type: 'ADD_SUBTASK',
+        payload: subtaskId
+    }
+}

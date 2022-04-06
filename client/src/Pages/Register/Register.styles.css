@@ -1,0 +1,10 @@
+.register__container {
+    width: 300px;
+    height:500px;
+    background-color: #2ea1ee;
+        border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

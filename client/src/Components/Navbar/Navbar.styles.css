@@ -2,12 +2,12 @@
 .navbar {
     z-index: 200;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     height: 45px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    background-color: rgb(228, 228, 228);
+    justify-content: space-evenly;
+    background-color: #070D1F;
     font-family: Roboto;
 }
 
@@ -28,8 +28,8 @@
 .navbar__logo {
     width: 180px;
     height: 100%;
+    margin-left: 15%;
     color: white;
-    background-color: #2ea1ee;
     display: flex;
     align-items: center;
     justify-content: center
@@ -44,7 +44,6 @@
     padding: 0px 20px;
     width: 90px;
     height: 100%;
-    background-color: #2ea1ee;
 }
 
 .navbar__links__button:hover {
@@ -54,4 +53,10 @@
 .navbar__links__button a {
     color: white;
     text-decoration: none;
+}
+
+.github {
+    width: 180px;
+    margin-right: 15%;
+    color: white;
 }

@@ -11,10 +11,18 @@ const ReminderList = () => {
   const user = useSelector((state: any ) => state.user)
   const [taskList, setTaskList] = useState([])
 
-  socket.on('sendTasks', (data) => {
-    if (!data.error) {
-      setTaskList(data)
+  socket.on('sendTasks', (task) => {
+    console.log(task);
+    
+    if (!task.error) {
+      setTaskList(task)
+    } else {
+      console.log('failure');
+      
     }
+    /* if (!subtask.error) {
+      setTaskList(subtask)
+    } */
     
   })
 

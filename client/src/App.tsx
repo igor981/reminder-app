@@ -7,19 +7,10 @@ import Navbar from './Components/Navbar/Navbar';
 import UserPage from './Pages/User/User';
 import { Reminders } from './Pages/Reminders/Reminders';
 import {io, Socket} from 'socket.io-client'
-
+import NotFound from './Components/NotFound';
+import HomeRouter from './Components/HomeRouting';
 
 export const socket: Socket = io("ws://localhost:3001");function App() {
-
-
-
-  const [user, setUser] = useState<any>()
-
-
-  const handleUserData = (userData: any) => {
-    
-    setUser(userData)
-  }
 
   useEffect(() => {
   }, [])
@@ -31,10 +22,12 @@ export const socket: Socket = io("ws://localhost:3001");function App() {
 
       <div className='content'>
       <Routes>
-      <Route path="/login"  element={<Login  handleUserData={handleUserData} />} />
-      <Route path="/register"  element={<Register handleUserData={handleUserData} />} />
+      <Route path="/"  element={<HomeRouter   />} />
+      <Route path="/login"  element={<Login   />} />
+      <Route path="/register"  element={<Register  />} />
       <Route path="/profile"  element={<UserPage />} />
       <Route path="/reminders/*"  element={<Reminders />} />
+      <Route path="/404"  element={<NotFound />} />
       </Routes>
       </div>
     </div>

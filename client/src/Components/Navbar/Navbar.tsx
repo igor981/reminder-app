@@ -32,7 +32,9 @@ const Navbar = () => {
         <div className="navbar__links">
           <div className="navbar__links__button">
             <Link to="/reminders">
-              <b>Reminders</b>
+              <p>
+                <b>Reminders</b>
+              </p>
             </Link>
           </div>
           {user ? (
@@ -59,6 +61,10 @@ const Navbar = () => {
               </div>
             </>
           )}
+        </div>
+
+        <div className="github">
+          <p>Github</p>
         </div>
       </nav>
     </div>

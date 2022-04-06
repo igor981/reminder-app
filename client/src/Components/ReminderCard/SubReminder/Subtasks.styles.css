@@ -1,0 +1,52 @@
+.subtask-item {
+    width: 90%;
+
+    background-color: white;
+    margin: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.351);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.subtask-item__description {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.reminder-item__description__buttons {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reminder-item__description__buttons button {
+    margin: 0px 5px;
+}
+
+.delete {
+    background-color: red;
+}
+.check {
+    background-color: green;
+}
+
+
+.taskform {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.newsubtask-form {
+    background-color: red;
+    border: 10px solid black;
+}
+
+.subtaskform__button button {
+    margin: 0px 5px
+}
+
+.cancel {
+    background-color: red;
+}
