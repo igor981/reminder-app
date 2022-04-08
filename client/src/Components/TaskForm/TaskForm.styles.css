@@ -1,5 +1,5 @@
 .taskform__container {
-    width: 400px;
+    width: 650px;
     height: 550px;
     border: 3px solid rgba(0, 0, 0, 0.165);
     border-radius: 10px;
@@ -10,7 +10,6 @@
 }
 
 .taskform__task-info {
-    width: 400px;
     height: 25%;
     display: flex;
     align-items: center;
@@ -49,7 +48,7 @@
 
 
 .cost-input {
-    width: 40px;
+    width: 60px;
 }
 
 .taskform__input {
@@ -76,7 +75,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    align-items: flex-start ;
+    align-items: center ;
     justify-content: center;
 
 }
@@ -87,7 +86,7 @@
 
 .taskform__description__textarea {
     width: 90%;
-    height: 180px;
+    height: 220px;
     margin: 3px 10px;
     margin-bottom: 20px;
 }
@@ -114,7 +113,12 @@
 .taskform-title {
     margin: 5px;
 }
-
+.taskname {
+    height: 30px;
+    width: 90%;
+    border: 1px solid rgb(195, 195, 195);
+    font-size: 25px;
+}
 
 .add-button {
     color: white;
@@ -123,4 +127,9 @@
     border: 0px solid white;
     border-radius: 10px;
     background-color: rgb(56, 230, 105);
+}
+
+
+.add-button:hover {
+    opacity: 80%;
 }

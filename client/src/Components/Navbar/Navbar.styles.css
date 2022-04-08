@@ -44,10 +44,11 @@
     padding: 0px 20px;
     width: 90px;
     height: 100%;
+    font-size: 15px;
 }
 
 .navbar__links__button:hover {
-    opacity: 80%;
+ color:    #3664F4;
 }
 
 .navbar__links__button a {
@@ -59,4 +60,17 @@
     width: 180px;
     margin-right: 15%;
     color: white;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+align-items: center;
+}
+
+.github p {
+    margin: 0px;
+}
+
+.navbar-button-text:hover {
+    color:    #3664F4;
+
 }

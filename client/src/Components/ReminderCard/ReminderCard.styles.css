@@ -2,11 +2,11 @@
     border: 2px solid rgba(0, 0, 0, 0.048);
     border-radius: 20px;
     width: 600px;
-    height: 690px;
-    margin: 80px;
+    height: 850px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px 0px;
     display: flex;
     flex-direction: column;
+    margin-top: 40px;
 }
 
 .remindercard__header {
@@ -44,7 +44,11 @@
     
 }
 .taskDescription {
-    margin: 20px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .taskDescription-tag {
     margin: 5px 20px;
@@ -60,7 +64,7 @@
 .edit-button {
     color: white;
     width: 60px;
-    height: 25px;
+    min-height: 25px;
     border: 0px solid green;
     border-radius: 10px;
     background-color: rgb(56, 230, 105);
@@ -70,10 +74,30 @@
     opacity: 80%;
 }
 
+
+
 .remindercard__content {
     background-color: rgb(255, 255, 255);
     height: 20%;
+    display: flex;
+    flex-direction: row;
 }
+.remindercard__content__buttons {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(215, 205, 205);
+}
+
+.remindercard__content__buttons button {
+    margin: 10px 0px;
+    width: 100px;
+    min-height: 30px;
+}
+
 
 .remindercard__subtasks {
     height: 430px;
@@ -303,4 +327,30 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+
+.macros {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.macros-data {
+    font-size: 12px;
+    margin: 0px 
+}
+
+.reminder-checked {
+    opacity: 50%;
+    
+}
+
+.locked {
+    opacity: 50%;
+}
+
+.locked:hover {
+   opacity: 50%;
 }

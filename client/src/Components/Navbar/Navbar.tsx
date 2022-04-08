@@ -31,23 +31,27 @@ const Navbar = () => {
         </div>
         <div className="navbar__links">
           <div className="navbar__links__button">
-            <Link to="/reminders">
+            <Link to="/reminders/all-reminders">
               <p>
-                <b>Reminders</b>
+                <b className='navbar-button-text'>Reminders</b>
               </p>
             </Link>
           </div>
           {user ? (
             <>
               <div className="navbar__links__button">
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">
+                  <p>
+                    <b className='navbar-button-text'>Profile</b>
+                  </p>
+                </Link>
               </div>
               <div
                 onClick={() => handleLogOut()}
                 className="navbar__links__button"
               >
                 <p>
-                  <b>Log out</b>
+                  <b className='navbar-button-text'>Log out</b>
                 </p>
               </div>
             </>

@@ -8,6 +8,7 @@
     padding: 5px;
 }
 
+
 .subtask-item__description {
     height: 100%;
     display: flex;
@@ -33,20 +34,7 @@
 }
 
 
-.taskform {
-    border: 1px solid black;
-    border-radius: 10px;
-}
 
-.newsubtask-form {
-    background-color: red;
-    border: 10px solid black;
-}
 
-.subtaskform__button button {
-    margin: 0px 5px
-}
 
-.cancel {
-    background-color: red;
-}
+

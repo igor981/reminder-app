@@ -9,6 +9,8 @@ import { Reminders } from './Pages/Reminders/Reminders';
 import {io, Socket} from 'socket.io-client'
 import NotFound from './Components/NotFound';
 import HomeRouter from './Components/HomeRouting';
+import Deleted from './Components/Deleted';
+import Private from './Components/Private';
 
 export const socket: Socket = io("ws://localhost:3001");function App() {
 
@@ -28,6 +30,8 @@ export const socket: Socket = io("ws://localhost:3001");function App() {
       <Route path="/profile"  element={<UserPage />} />
       <Route path="/reminders/*"  element={<Reminders />} />
       <Route path="/404"  element={<NotFound />} />
+      <Route path="/reminder-deleted"  element={<Deleted />} />
+      <Route path="/unauthorized"  element={<Private />} />
       </Routes>
       </div>
     </div>

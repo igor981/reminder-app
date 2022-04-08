@@ -28,7 +28,7 @@ export const Reminders = () => {
         </div>
       </div>
 
-      <div>
+      <div className='home-content-routes'>
         <Routes>
           <Route path="create-reminder" element={<TaskForm />} />
           <Route path="all-reminders" element={<ReminderList />} />

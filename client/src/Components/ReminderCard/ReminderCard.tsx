@@ -1,12 +1,14 @@
 import React, {useEffect,useState} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchedReminder, updateReminder } from '../../redux/actions/reminder.actions';
+import { addSubtask, fetchedReminder, updateReminder } from '../../redux/actions/reminder.actions';
 import './ReminderCard.styles.css'
 import { socket } from '../../App';
+import { deleteSubtask } from '../../redux/actions/reminder.actions';
 
 import SubReminderCreate from './SubReminder/SubReminderCreate';
 import SubTasks from './SubReminder/SubTasks';
+import TaskForm from '../TaskForm/TaskForm';
 
 
 
@@ -15,66 +17,151 @@ const ReminderCard = () => {
     const dispatch = useDispatch()
     const [editMode, setEditMode] = useState(false)
     const [sumState, setSumState] = useState(0)
+    const [owner, setOwner] = useState(false)
+    const [macros, setMacros] = useState( { protein: 0, carbs: 0, fats: 0 } )
     const [newSubtask, setNewSubtask] = useState(false)
     const reminder = useSelector((state: any ) => state.reminder)
+    const user = useSelector((state: any ) => state.user)
     const {reminderId} = useParams()
     const uuidReg = /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/i
 
     const navigate = useNavigate()
+    const macroCalculator = (data: any) => {
+      let itemAmount = 0
+      let newMacros: any = {
+        protein: 0,
+        carbs: 0,
+        fats: 0,
+      };
 
-    
-    const logger = (message: string, message2: string) => {
-        console.log(message, message2);
-        
+      if (data.subtasks && data.subtasks.length > 0) {
+        data.subtasks.map((item: any) => {          
+          if (item.category === "food") {
+            itemAmount++;
+            for (const key of Object.keys(item.nutrients)) {          
+              newMacros[key] += parseInt(item.nutrients[key]);
+            }
+          }
+        });
+        for (const key of Object.keys(newMacros)) {          
+          newMacros[key] /= itemAmount ;
+        }
+        setMacros(newMacros)
+      }
+
+    }
+
+    const handleLock = () => {
+      let updatedReminder = {
+        ...reminder,
+        locked: !reminder.locked,
+      };
+      dispatch(updateReminder(updatedReminder));
+      updateSocket(updatedReminder);
     }
 
     const changeSum = (cost:number) => {
       const newSum = sumState + cost
       setSumState(newSum)
-
     }
 
     const deleteReminder = () => {     
       socket.emit('delete-reminder', reminder.taskId)
-      navigate('/404')
+      navigate('/reminder-deleted')
     }
     
     const updateSocket = (updatedReminder: any) => {
-        socket.emit('update-task', updatedReminder, logger)
+        socket.emit('update-task', updatedReminder)
     }
     
-    const handleChange = (e: any) => {        
+    const handleChange = (e: any) => {
+
         let updatedReminder = {
             ...reminder,
             [e.target.id]: e.target.value
         }   
-
         dispatch(updateReminder(updatedReminder))
        updateSocket(updatedReminder)      
     }
+
+    const handleCheck = () => {
+      let updatedReminder = {
+        ...reminder,
+        checked: !reminder.checked,
+      };
+      dispatch(updateReminder(updatedReminder));
+      updateSocket(updatedReminder);
+    }
+
+    const handleMacros = (e: any) => {
+      let updatedMacros = {
+        ...macros,
+        [e.target.id]: e.target.value,
+      };
+
+      setMacros(updatedMacros);
+      let updatedReminder = {
+        ...reminder,
+        nutrients: updatedMacros,
+      };
+
+      dispatch(updateReminder(updatedReminder));
+      updateSocket(updatedReminder);
+    }
+
+    const handleDeleteSubtask = (subTaskId: string) => {
+      socket.emit('delete-subtask', subTaskId, reminder.taskId)
+      dispatch(deleteSubtask(subTaskId))
+
+  }
     
 
-    useEffect(() => {
+  useEffect(() => {
+      socket.on("getUpdatedTask", async (data) => {          
+        dispatch(updateReminder(data));
+        macroCalculator(reminder)
+      });
       socket.on('deleted-reminder', async () => {
-        navigate('/404')
+        navigate('/reminder-deleted')
+      })
+      socket.on('subtaskDeleted', async (data) => {
+        dispatch(deleteSubtask(data))
+         
+      })
+      socket.on('getSubtask', async (data) => {
+        dispatch(addSubtask(data))
+        
       })
       socket.on('sendTask', async (data) => {
+          if(data.unauthorized) {
+            navigate('/unauthorized')
+          }
+          
           if (!data.error){
+            if (data.creatorId === user.userId) {setOwner(true)}
+            console.log(data);
+            
             dispatch(fetchedReminder(data))   
+            macroCalculator(data)
           } else {
             navigate('/404')
+            return
           }  
         })
-        socket.on("getUpdatedTask", async (data) => {
-          dispatch(updateReminder(data));
-        });
+
+        macroCalculator(reminder);
       }, [socket])
       
       useEffect(() => {
         if (!uuidReg.test(reminderId || "")) {
           navigate("/404");
         } else {
-          socket.emit("join-room", reminderId, logger);
+          const roomData = {
+            reminderId,
+            userId: user.userId,
+          };
+
+          socket.emit("join-room", roomData);
         }
       }, []);
     
@@ -99,11 +186,11 @@ const ReminderCard = () => {
         <div className="remindercard__header__info">
           {editMode === false && reminder.category === "work-task" ? (
             <p className="task-name">
-              Deadline need fix
-              {/* { reminder.deadline && reminder.deadline.length > 0 ? {e} : null} */}
+              <b>Deadline:</b>
+              {reminder.deadline.split('T')[0]}
             </p>
           ) : editMode === true && reminder.category === "work-task" ? (
-            <input type="date" onChange={(e) => handleChange(e)} />
+            <input id='deadline' type="date" onChange={(e) => handleChange(e)} />
           ) : null}
           {editMode === false ? (
             <p>
@@ -116,33 +203,95 @@ const ReminderCard = () => {
               </p>
               <select id="category" onChange={(e) => handleChange(e)}>
                 <option value={"regular"}>Choose Category</option>
-                <option value={"regular"}>regular</option>
-                <option value={"work-task"}>work task</option>
-                <option value={"food"}>food</option>
-                <option value={"shopping-list"}>shopping list</option>
+                <option value={"regular"}>Regular</option>
+                <option value={"work-task"}>Work</option>
+                <option value={"food"}>Recipe</option>
+                <option value={"shopping-list"}>Shopping list</option>
               </select>
             </>
           )}
-          <p>
-            {" "}
-            <b>Total sum:</b> {sumState}
-          </p>
-          <p>
-            {" "}
-            <b>Cost:</b> {reminder.cost}
-          </p>
+          {editMode === false && reminder.category === "food" ? (
+            <div className="macros">
+              <p className="macros-data">
+                <b>Protein:</b> {macros.protein}g/100g
+              </p>
+              <p className="macros-data">
+                <b>Carbs:</b> {macros.carbs}g/100g
+              </p>
+              <p className="macros-data">
+                <b>Fats:</b> {macros.fats}g/100g
+              </p>
+            </div>
+          ) : editMode === true && reminder.category === "food" ? (
+            <div className="taskform__input">
+              <div className="micro-nutrient">
+                <label>
+                  <b>Protein:</b>
+                </label>
+                <input
+                  onChange={(e) => handleMacros(e)}
+                  id="protein"
+                  className="cost-input"
+                  type="number"
+                />
+              </div>
+              <div className="micro-nutrient">
+                <label>
+                  <b>Carbs:</b>
+                </label>
+                <input
+                  onChange={(e) => handleMacros(e)}
+                  id="carbs"
+                  className="cost-input"
+                  type="number"
+                />
+              </div>
+              <div className="micro-nutrient">
+                <label>
+                  <b>Fat:</b>
+                </label>
+                <input
+                  onChange={(e) => handleMacros(e)}
+                  id="fats"
+                  className="cost-input"
+                  type="number"
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {editMode === false ? (
+            <p>
+              {" "}
+              <b>Cost:</b> {sumState}kr
+            </p>
+          ) : (
+            <div className="micro-nutrient">
+              <label>
+                <b>Cost:</b>
+              </label>
+              <input
+                onChange={(e) => handleChange(e)}
+                id="cost"
+                className="cost-input"
+                type="number"
+              />
+            </div>
+          )}
           <div className="header-buttons">
             <button
-              className="edit-button"
+              className={reminder.locked ? 'edit-button locked' : 'edit-button'}
+              disabled={reminder.locked}
               onClick={() => setEditMode(!editMode)}
-            >
-              Edit
+              >
+              {reminder.locked ? 'Edit locked' : editMode ? 'Done' : 'Edit'}
             </button>
             <button
-              className="edit-button delete"
+              className={reminder.locked ? 'edit-button delete locked' : 'edit-button delete'}
+              disabled={reminder.locked}
               onClick={() => deleteReminder()}
             >
-              Delete
+              {reminder.locked ? 'Delete locked' : 'Delete'}
             </button>
           </div>
         </div>
@@ -175,12 +324,30 @@ const ReminderCard = () => {
             </div>
           </>
         )}
+
+        <div className="remindercard__content__buttons">
+          <button disabled={reminder.locked} className="check" onClick={() => handleCheck()}>
+          {reminder.locked ? 'Check Locked' : reminder.checked ? 'Uncheck' : 'Check'}
+          </button>
+          {owner === true ? (
+            <button className="locked" onClick={() => handleLock()}>
+              {reminder.locked ? 'Unlock' : 'Lock'}
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div className="remindercard__subtasks">
+      <div
+        className={
+          reminder.checked || reminder.locked
+            ? "remindercard__subtasks reminder-checked"
+            : "remindercard__subtasks"
+        }
+      >
         <div className="remindercard__subtasks__header">
           <h2 className="subtask-title">Subtasks:</h2>
           <button
             className="subtask-create-button"
+            disabled={ reminder.locked || reminder.checked }
             onClick={() => setNewSubtask(!newSubtask)}
           >
             {" "}
@@ -197,9 +364,10 @@ const ReminderCard = () => {
           <ul className="subtasks__ul">
             {reminder.subtasks !== undefined && reminder.subtasks.length > 0
               ? reminder.subtasks.map((item: any, index: any) => {
-                return item ? <SubTasks key={index} item={item} changeSum={changeSum} /> : null
-              }
-                )
+                  return item ? (
+                    <SubTasks key={index} item={item} handleDeleteSubtask={handleDeleteSubtask} changeSum={changeSum} />
+                  ) : null;
+                })
               : null}
           </ul>
         </div>

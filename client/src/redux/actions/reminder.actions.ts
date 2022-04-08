@@ -21,9 +21,9 @@ export const deleteSubtask = (subtaskId: string) => {
         payload: subtaskId
     }
 }
-export const addSubtask = (subtaskId: string) => {
+export const addSubtask = (subtask: any) => {
     return {
         type: 'ADD_SUBTASK',
-        payload: subtaskId
+        payload: subtask
     }
 }

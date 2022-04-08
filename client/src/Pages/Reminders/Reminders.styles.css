@@ -7,8 +7,8 @@
     align-items: center;
     justify-content: center;
     font-family: roboto;
-    background-color: #3e528f;;
-
+    background-color: #3e528f;
+    overflow: hidden;
 }
 .reminder__button {
     width: 80%;
@@ -48,4 +48,13 @@
 
 .reminder__button:hover {
     opacity: 80%;
+}
+
+
+.home-content-routes {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

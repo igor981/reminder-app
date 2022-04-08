@@ -1,0 +1,43 @@
+.subtask-container {
+    height: 550px;
+    width: 400px;
+}
+.subtaskform {
+    border: 1px solid black;
+    height: 100%;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.subtaskform__task-info {
+    height:40%;
+}
+.subtaskform__desc {
+    height:40%;
+}
+
+.subtaskform__button {
+    margin: 0px 5px;
+    width: 100%;
+    height: 20%;
+}
+.subtaskform__button button {
+    margin: 0px 5px
+}
+
+.cancel {
+    background-color: red;
+}
+
+.subtaskform__desc {
+    height: 40%;
+    width: 100%;
+}
+
+
+.taskform__input textarea {
+    height: 150px;
+}
+

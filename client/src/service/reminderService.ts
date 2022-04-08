@@ -7,7 +7,7 @@ export const  createReminder = async (category: string, task: string, desc: stri
 
   let today = new Date();
   let created =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+    today.toLocaleDateString()
 
   const newReminder = await axios.post(URL + "create-reminder", {
     taskId,
@@ -18,11 +18,10 @@ export const  createReminder = async (category: string, task: string, desc: stri
     desc,
     deadline,
     cost,
-    visibility,
+    public: visibility,
+    
   });
-
-  console.log(newReminder);
   
 
-  return newReminder;
+  return newReminder.data;
 }

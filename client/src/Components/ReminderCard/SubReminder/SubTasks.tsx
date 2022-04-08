@@ -1,20 +1,7 @@
 import React, {useEffect} from 'react'
 import './Subtasks.styles.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { socket } from '../../../App'
-import { deleteSubtask } from '../../../redux/actions/reminder.actions'
-const SubTasks = ({item, changeSum} : {item: any, changeSum: any}) => {
-    const dispatch = useDispatch()
+const SubTasks = ({item, changeSum, handleDeleteSubtask} : {item: any, changeSum: any, handleDeleteSubtask: any}) => {
 
-    const deleteItem = () => {
-        socket.emit('delete-subtask', item.subTaskId)
-        dispatch(deleteSubtask(item.subTaskId))
-
-    }
-
-    const checkItem = () => {
-
-    }
 
     useEffect(() => {
         changeSum(item.cost)
@@ -32,7 +19,7 @@ const SubTasks = ({item, changeSum} : {item: any, changeSum: any}) => {
                     <p>{item && item.description}</p>
                     <div className='reminder-item__description__buttons' >
                     <button className='check'>Check</button>
-                    <button onClick={() => deleteItem()} className='delete'>Delete</button>
+                    <button onClick={() => handleDeleteSubtask(item.subTaskId)} className='delete'>Delete</button>
                     </div>
                 </div>
               </li>

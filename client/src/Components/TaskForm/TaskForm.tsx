@@ -22,7 +22,8 @@ const TaskForm = () => {
     setCategory(value)
   }
   const handleDateChange = (e: any) => {
-    setDeadline(e.target.value)
+    const dateFormat = e.target.value.split('T')[0]
+    setDeadline(dateFormat)
   }
   const handleTaskChange = (e: any) => {
     setTask(e.target.value)
@@ -31,16 +32,14 @@ const TaskForm = () => {
     setDesc(e.target.value)
     
   }
-  const handleCostChange = (e: any) => {
-    setCost(parseInt(e.target.value))
-    
-  }
+
   const handlePrivateChange = (e: any) => {
     setVisibiltiy({
       public: false,
       private: false,
       [e.target.value]: true,
     })
+    
   }
 
   const onFormSubmit = async(e: any) => {
@@ -48,12 +47,23 @@ const TaskForm = () => {
     setShowError(false)
     e.preventDefault()
     if ( task && desc && user.userId) {
-      const reminder = await createReminder(category, task, desc, deadline, cost, visibility.public, user.userId)
-      if (!reminder.data.error) {
-        navigate('/reminders/' + reminder.data.task.taskId)
 
+      console.log(deadline, 'THIS IS THE DEADLINE');
+      
+      const reminder = await createReminder(
+        category,
+        task,
+        desc,
+        deadline,
+        cost,
+        visibility.public,
+        user.userId,
+      );
+
+      
+      if (!reminder.error) {
+        navigate("/reminders/" + reminder.task.taskId);
       }
-
     } else {
       setShowError(true)
       setError('Task & description form cant be empty')
@@ -72,7 +82,7 @@ const TaskForm = () => {
                 <b>Task:</b>{" "}
               </label>
               <input
-                className="task-input"
+                className="task-input taskname"
                 type="text"
                 onChange={(e) => handleTaskChange(e)}
               />
@@ -88,26 +98,18 @@ const TaskForm = () => {
                 className="category-input"
                 onChange={(e) => handleCategorySelect(e.target.value)}
               >
-                <option value={"regular"}>regular</option>
-                <option value={"work-task"}>work task</option>
-                <option value={"food"}>food</option>
-                <option value={"shopping-list"}>shopping list</option>
+                <option value={"regular"}>Regular</option>
+                <option value={"work-task"}>Work</option>
+                <option value={"food"}>Recipe</option>
+                <option value={"shopping-list"}>Shopping list</option>
               </select>
             </div>
-            <div className="taskform__input cost">
-              <label>
-                <b>Cost:</b>
-              </label>
-              <input
-                className="cost-input"
-                type="number"
-                value={0}
-                onChange={(e) => handleCostChange(e)}
-              />
-            </div>
+            
             {category === "work-task" ? (
               <div className="taskform__input">
-                <label><b>Deadline:</b></label>
+                <label>
+                  <b>Deadline:</b>
+                </label>
                 <input
                   className="deadline-input"
                   type="date"
@@ -119,7 +121,9 @@ const TaskForm = () => {
         </div>
 
         <div className="taskform__description">
-          <label><b>Description</b></label>
+          <label>
+            <b>Task description:</b>
+          </label>
           <textarea
             className="taskform__description__textarea"
             onChange={(e) => handleDescChange(e)}
@@ -127,16 +131,18 @@ const TaskForm = () => {
         </div>
         <div className="taskform__buttons">
           <div className="taskform__visibility-options">
-            <p className="visibility-title"><b>Visibility:</b></p>
+            <p className="visibility-title">
+              <b>Visibility:</b>
+            </p>
             <div className="1">
-              <label>public</label>
+              <label>Public</label>
               <input
                 type="radio"
                 checked={visibility.public}
                 value={"public"}
                 onChange={(e) => handlePrivateChange(e)}
               />
-              <label>private</label>
+              <label>Private</label>
               <input
                 type="radio"
                 checked={visibility.private}
@@ -146,7 +152,7 @@ const TaskForm = () => {
             </div>
           </div>
           <div className="create-reminder-divs">
-            <button className='add-button'>Add reminder</button>
+            <button className="add-button">Add reminder</button>
           </div>
         </div>
       </form>
