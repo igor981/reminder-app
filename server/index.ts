@@ -38,22 +38,23 @@ io.on("connection", (socket: any) => {
     })
 
 
-    socket.on('update-task', async (data: any, cb: any) => {
+    socket.on('update-task', async (data: any) => {
         const updatedTask = await updateReminder(data)  
+ 
+        
         if (updatedTask !== null ){
             socket.to(data.taskId).emit('getUpdatedTask', data)
-            cb(data.category, updatedTask.category)
-        }    
-
+                }    
     })
 
-    socket.on('new-subtask', async(data:any, callback: any) => {
-        const newSubtask = await  createSubtask(data)
-        callback(newSubtask)
+    socket.on('new-subtask', async(data:any, roomId: string) => {
+        createSubtask(data)      
+        socket.to(roomId).emit('getSubtask', data)
     })
 
-    socket.on('delete-subtask', async(data: string) => {        
+    socket.on('delete-subtask', async(data: string, roomId: string) => {        
         await deleteSubtask(data)
+        socket.to(roomId).emit('subtaskDeleted', data)
     })
     socket.on('delete-reminder', async(data: string) => {        
         await deleteReminder(data)      
@@ -62,29 +63,24 @@ io.on("connection", (socket: any) => {
 
     })
 
-    socket.on('join-room', async (room: string, logger: any) => {
-        socket.join(room)
-            const task = await getReminder(room)
-            if (task !== null) {
-                const subtasks = await allSubtasks(task.taskId)
-                
-                if (subtasks) {
-                    const taskWithSubtask = {
-                      ...task["_doc"],
-                      subtasks,
-                    };
-                        
-                    io.to(room).emit('sendTask', taskWithSubtask)
-                    logger('connected', room)
-                } else {
-    
-                    io.to(room).emit('sendTask', task)
-                    logger('connected', room)
-                }
-            }  else {
-                const error = {error: 'task not found'}
-                io.to(room).emit('sendTask', error)
-            }
+    socket.on('join-room', async ( roomData: any) => {
+        socket.join(roomData.reminderId)         
+        const task = await getReminder(roomData.reminderId, roomData.userId);  
+        if (task === null) {
+            const error = { error: "task not found" };
+            io.to(roomData.reminderId).emit("sendTask", error);
+            return
+        }   
+        if(task.unauthorized !== null) {
+            socket.emit("sendTask", task)
+            return
+        } else {
+          if (task !== null) {  
+            io.to(roomData.reminderId).emit("sendTask", task);
+           return
+          } 
+        }
+        
     })
 
 })
