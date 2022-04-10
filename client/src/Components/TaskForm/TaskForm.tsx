@@ -72,6 +72,7 @@ const TaskForm = () => {
   }
 
   return (
+    <div className='window'>
     <div className="taskform__container">
       <form className="taskform" onSubmit={(e) => onFormSubmit(e)}>
         <div className="taskform__task-info">
@@ -156,6 +157,7 @@ const TaskForm = () => {
           </div>
         </div>
       </form>
+    </div>
     </div>
   );
 }

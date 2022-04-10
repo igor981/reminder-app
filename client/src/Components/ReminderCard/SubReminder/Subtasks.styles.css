@@ -1,6 +1,6 @@
 .subtask-item {
     width: 90%;
-
+    height: 160px;
     background-color: white;
     margin: 20px;
     border: 1px solid rgba(0, 0, 0, 0.351);
@@ -8,29 +8,90 @@
     padding: 5px;
 }
 
+.subtask-item__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(60, 60, 60, 0.438);
+    height: 80px;
+}
 
 .subtask-item__description {
-    height: 100%;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.reminder-item__description__buttons {
-    height: 100%;
+.subtask-item__description__buttons {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+    
 }
 
-.reminder-item__description__buttons button {
-    margin: 0px 5px;
+.subtask-item__description__buttons button {
+    margin: 10px 5px;
+    background-color: rgba(255, 255, 255, 0.343);
+    width: 60px;
+    min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.647);
+    border: 1px solid rgba(0, 0, 0, 0.377);
+    transition: all 0.2s ease 0s;
+    font-family: sans-serif;
+    font-weight: 500;
+    
+    border-radius: 5px;
+}
+.subtask-item__info__name {
+    margin-left: 10px;
 }
 
-.delete {
-    background-color: red;
+.subtask-item__info__data {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
 }
-.check {
-    background-color: green;
+.subtask-item__info__data p{
+   margin: 0px 10px;
+}
+
+.subtask-item__info__macros {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.subtask-item__info__macros p {
+    margin: 5px 30px;
+}
+.s
+.subtask-item__description__buttons button {
+    margin: 5px 5px;
+    width: 50px;
+    min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: 1px solid rgba(0, 0, 0, 0.294);
+    background-color: white;
+    transition: all 0.2s ease 0s;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+}
+#delete-button:hover {
+    background-color: #f32512ce;
+    border: 1px solid #ffffff;
+    color: white;
+}
+
+
+.item-checked {
+    opacity: 40%;
 }
 
 

@@ -6,7 +6,7 @@ import cors from 'cors';
 import http from 'http';
 import authRouter from './routes/auth.routes'
 import reminderRouter from './routes/reminder.routes'
-import {allReminders, getReminder, updateReminder, createSubtask, allSubtasks, deleteSubtask, deleteReminder} from './controllers/reminder.controller'
+import {allReminders, getReminder, updateReminder, createSubtask, allSubtasks, deleteSubtask, deleteReminder, updateSubtask} from './controllers/reminder.controller'
 config()
 mongoose.connect(process.env.MONGOOSE_CONNECT || '')
 const corsOptions: cors.CorsOptions = {
@@ -39,12 +39,21 @@ io.on("connection", (socket: any) => {
 
 
     socket.on('update-task', async (data: any) => {
-        const updatedTask = await updateReminder(data)  
- 
+      const updatedTask = await updateReminder(data);
+
+      if (updatedTask !== null) {
+        socket.to(data.taskId).emit("getUpdatedTask", data);
+      }
+    })
+    socket.on('check-task', async (data: any) => {
+        console.log(data);
         
-        if (updatedTask !== null ){
-            socket.to(data.taskId).emit('getUpdatedTask', data)
-                }    
+      const updatedTask = await updateReminder(data);
+        console.log('reachhing backend', data.checked);
+        
+      if (updatedTask !== null) {
+        socket.to(data.taskId).emit("getCheckedTask", data.checked);
+      }
     })
 
     socket.on('new-subtask', async(data:any, roomId: string) => {
@@ -56,7 +65,18 @@ io.on("connection", (socket: any) => {
         await deleteSubtask(data)
         socket.to(roomId).emit('subtaskDeleted', data)
     })
-    socket.on('delete-reminder', async(data: string) => {        
+    socket.on('update-subtask', async(data: string, roomId: string) => {   
+        console.log(data, roomId);
+             
+        await updateSubtask(data)
+        socket.to(roomId).emit('updatedSubtask', data)
+    })
+
+    
+    socket.on('delete-task', async(data: string) => {   
+        
+        console.log(data, 'is this reaaaaaaaaaaaaaaaaching');
+        
         await deleteReminder(data)      
        
      socket.to(data).emit('deleted-reminder', data)   

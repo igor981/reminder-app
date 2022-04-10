@@ -54,6 +54,10 @@ const SubReminderCreate = ({taskId, setNewSubtask} : {taskId: string, setNewSubt
     setShowError(false);
     e.preventDefault();
 
+
+    console.log('testing');
+    
+
     if (task && desc && user.userId) {
       const subTaskId = uuidv4();
       const subtask = {
@@ -66,6 +70,7 @@ const SubReminderCreate = ({taskId, setNewSubtask} : {taskId: string, setNewSubt
         cost,
         nutrients,
       };      
+      
       socket.emit("new-subtask", subtask, taskId);
 
       dispatch(addSubtask(subtask))
@@ -83,7 +88,7 @@ const SubReminderCreate = ({taskId, setNewSubtask} : {taskId: string, setNewSubt
       <form className="subtaskform" onSubmit={(e) => onFormSubmit(e)}>
         <div className="subtaskform__task-info">
           <div className="subtaskform__task-info__task">
-            <label>{category === 'food' ? 'Product' : 'Task'}</label>
+            <label>{category === "food" ? "Product" : "Task"}</label>
             <input onChange={(e) => handleTaskChange(e)} type="text" />
           </div>
           <div className="subtaskform__task-info__info">
@@ -155,11 +160,8 @@ const SubReminderCreate = ({taskId, setNewSubtask} : {taskId: string, setNewSubt
           </div>
         </div>
         <div className="subtaskform__button">
-          <button className="addsubtask-button">Add reminder</button>
-          <button
-            onClick={() => setNewSubtask(false)}
-            className="addsubtask-button cancel"
-          >
+          <button id='edit-button' className="addsubtask-button">Add reminder</button>
+          <button onClick={() => setNewSubtask(false)} id="content-lock">
             Cancel
           </button>
         </div>

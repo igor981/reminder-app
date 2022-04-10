@@ -88,6 +88,14 @@ export const updateReminder = async (task: any) => {
         return error
     }
 }
+export const updateSubtask = async (subtask: any) => {
+    try {
+        const updatedSubtask = await  SubTask.findOneAndReplace({subTaskId: subtask.subTaskId}, subtask)
+        return updatedSubtask
+    } catch (error) {
+        return error
+    }
+}
 
 
 export const createSubtask = async (subtask: any) => {

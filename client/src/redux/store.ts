@@ -4,10 +4,12 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 
 import {userReducer} from './reducers/userReducer'
 import { reminderReducer } from './reducers/reminderReducer'
+import { reminderListReducer } from './reducers/reminderListReducer'
 
 const reducer = combineReducers({
     user: userReducer,
-    reminder: reminderReducer
+    reminder: reminderReducer,
+    list: reminderListReducer
 
 })
 

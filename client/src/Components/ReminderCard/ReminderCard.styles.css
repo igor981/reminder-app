@@ -1,19 +1,37 @@
+.window {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .remindercard {
     border: 2px solid rgba(0, 0, 0, 0.048);
     border-radius: 20px;
     width: 600px;
-    height: 850px;
+    height: 800px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px 0px;
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 100px;
+   
+}
+
+.taskform__input {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    
 }
 
 .remindercard__header {
     display: flex;
     flex-direction: row;
+    height: 30%;
+    width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
-    height: 25%;
 }
 .remindercard__header__title {
     color: black;
@@ -26,62 +44,118 @@
     width: 70%;
     overflow: hidden;
 }
+.remindercard__header__title label {
+    margin-right: 5px;
+    font-size: 15px;
+    font-weight: 800;
+   
+}
+
+.remindercard__header__title input {
+    width: 240px;
+    height: 30px;
+    font-size: 14px;
+}
+
+
+
+
 .remindercard__header__info {
     display: flex;
     border-top-right-radius: 20px;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start ;
     justify-content: center;
     width: 30%;
-    background-color: #8d9ac3;;
+    background-color: #a7b4e1;
 }
 .remindercard__header__info p {
     margin: 5px;
+    margin-left: 5px;
+  
 }
 
-.task-name {
-    font-weight: 200;
+.macros {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.macros-data {
+    margin: 0px;
+    font-size: 12px;
+}
+.remindercard__header__info__buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
-.taskDescription {
+.remindercard__header__info__buttons button {
+    margin: 10px 5px;
+    background-color: rgba(255, 255, 255, 0.343);
+    width: 60px;
+    min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.647);
+    border: 1px solid rgba(0, 0, 0, 0.377);
+    transition: all 0.2s ease 0s;
+    font-family: sans-serif;
+    font-weight: 500;
+    
+    border-radius: 5px;
+}
+#edit-button:hover {
+    background-color: #2EE59D;
+    border: 1px solid #ffffff;
+    color: white;
+}
+#delete-button:hover {
+    background-color: #f32512ce;
+    border: 1px solid #ffffff;
+    color: white;
+}
+.remindercard__content {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+}
+
+
+.remindercard__content__description {
+    background-color: rgb(255, 255, 255);
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+}
+
+.remindercard__content__description {
     width: 70%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.taskDescription-tag {
+.remindercard__content__description__tag {
     margin: 5px 20px;
     font-size: 22px;
 }
 
-.taskDescription-text {
+.remindercard__content__description__text {
     margin-left: 20px;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 600;
+    height: 70%;
+    width: 90%;
 }
 
-.edit-button {
-    color: white;
-    width: 60px;
-    min-height: 25px;
-    border: 0px solid green;
-    border-radius: 10px;
-    background-color: rgb(56, 230, 105);
-    margin: 0px 5px
-}
-.edit-button:hover {
-    opacity: 80%;
+.remindercard__content__description__text h2, h1, h3, h4 {
+    margin: 12px 0px;
 }
 
-
-
-.remindercard__content {
-    background-color: rgb(255, 255, 255);
-    height: 20%;
-    display: flex;
-    flex-direction: row;
-}
 .remindercard__content__buttons {
     height: 100%;
     width: 30%;
@@ -89,18 +163,72 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(215, 205, 205);
+    background-color: rgb(243, 243, 243);
 }
 
 .remindercard__content__buttons button {
     margin: 10px 0px;
     width: 100px;
     min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: 1px solid rgba(0, 0, 0, 0.294);
+    transition: all 0.3s ease 0s;
+    border-radius: 5px;
+}
+
+
+.remindercard__subtasks__header button {
+    background-color: rgba(243, 243, 243, 0.38);
+    margin: 10px 40px;
+    width: 100px;
+    min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: 1px solid rgba(0, 0, 0, 0.294);
+    transition: all 0.3s ease 0s;
+    border-radius: 5px;
+}
+
+.remindercard__content__buttons button:hover {
+    opacity: 80%;
+}
+
+
+
+#content-check:hover {
+    background-color: #10d486;
+    border: 1px solid #ffffff;
+    color: white;
+}
+#content-lock:hover {
+    background-color: #e3a033;
+    border: 1px solid #ffffff;
+    color: white;
+}
+
+
+
+
+.edit-button {
+    color: white;
+    width: 60px;
+    min-height: 25px;
+    border: 0px solid green;
+    border-radius: 10px;
+    background-color: rgb(79, 207, 79);
+
+    margin: 0px 5px
+}
+.edit-button:hover {
+    opacity: 80%;
 }
 
 
 .remindercard__subtasks {
-    height: 430px;
+    height: 50%;
     display: flex;
     flex-direction: column;
 }
@@ -109,7 +237,7 @@
     height: 16%;
     border-top: 1px solid rgba(0, 0, 0, 0.242);
     border-bottom: 1px solid rgba(0, 0, 0, 0.242);
-    background-color: rgb(227, 235, 255);
+    background-color: #b6c5f6;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -127,13 +255,12 @@
     width: 120px;
     height: 30px;
     border: 0px solid green;
-    border-radius: 10px;
+    border-radius: 1px;
     margin-right: 20px;
     padding: 7px;
-    border-radius: 10px;
     color: white;
-    background-color: rgb(56, 230, 105);
-    border-color: rgb(41, 186, 82);;
+    background-color: rgb(44, 214, 44);
+    border: 1px solid rgba(79, 207, 79, 0.565);
 }
 
 .subtask-create-button:hover {
@@ -143,7 +270,7 @@
 .remindercard__subtasks__list {
     background-color: rgb(250, 250, 250);
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
    
 
 }
@@ -330,17 +457,8 @@
 }
 
 
-.macros {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
 
-.macros-data {
-    font-size: 12px;
-    margin: 0px 
-}
+
 
 .reminder-checked {
     opacity: 50%;

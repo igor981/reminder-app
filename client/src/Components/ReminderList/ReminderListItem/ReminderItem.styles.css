@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Sans+Pro&display=swap');
+
+.reminder-item-home {
+    background-color: rgb(250, 250, 250);
+    color: black;
+    width: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.302);
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px 0px;
+    margin: 20px;
+    font-family: roboto;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.reminder-item-home:hover {
+    background-color: white;
+}
+
+.reminder-item-home__info {
+    height: 80px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.218);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.reminder-item-home__description {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 130px
+}
+
+
+.reminder-item-home__description__text {
+    width: 100%;
+    display: flex;
+    margin-left: 20px;
+    height: 100%;
+}
+
+.reminder-item-home p {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.reminder-item-home__description p {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.reminder-item-home__description__buttons {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #8d9ac3;;
+    border-bottom-right-radius: 10px;
+}
+
+.reminder-item-home__description__buttons button {
+    width: 100px;
+    margin: 5px 0px;
+}
+
+.reminder-item-home__description__buttons__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.reminder-item-home__description__buttons__top button {
+    width: 50px;
+    margin: 0px 4px;
+}
+.reminder-item-home__description__buttons__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
