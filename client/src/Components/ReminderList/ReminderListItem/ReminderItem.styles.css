@@ -88,3 +88,37 @@
 
 }
 
+.view-button {
+    margin: 10px 5px;
+    background-color: rgba(255, 255, 255, 0.343);
+    width: 50px;
+    min-height: 30px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.647);
+    border: 1px solid rgba(0, 0, 0, 0.377);
+    transition: all 0.2s ease 0s;
+    font-family: sans-serif;
+    font-weight: 500;
+    border-radius: 5px;
+    font-size: 12px;
+
+}
+
+.delete-button {
+    margin: 10px 5px;
+    background-color: rgba(255, 255, 255, 0.343);
+    width: 100%;
+    min-height: 30px;
+    border: none;
+    
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.647);
+    border: 1px solid rgba(0, 0, 0, 0.377);
+    transition: all 0.2s ease 0s;
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    
+    border-radius: 5px;
+}

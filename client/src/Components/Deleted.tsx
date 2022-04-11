@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import './messages.styles.css';
 
-const Deleted = () => {
+function Deleted() {
   return (
     <div>
-        <h1>The reminder has been deleted</h1>
+      <h1>This reminder has been deleted</h1>
     </div>
-  )
+  );
 }
 
-export default Deleted
+export default Deleted;

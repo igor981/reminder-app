@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
+import './messages.styles.css';
 
-const Private = () => {
-  return (
-    <div><h1>You do not have access to this reminder</h1></div>
-  )
+function Private() {
+  return <div><h1>You do not have access to this reminder</h1></div>;
 }
 
-export default Private
+export default Private;

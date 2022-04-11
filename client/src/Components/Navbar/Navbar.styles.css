@@ -66,11 +66,12 @@
 align-items: center;
 }
 
-.github p {
+.github a {
     margin: 0px;
+    text-decoration: none;
+    color: white;
 }
 
 .navbar-button-text:hover {
     color:    #3664F4;
-
 }

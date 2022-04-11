@@ -1,11 +1,7 @@
-export const loginAction = (user: object) => {
-    return {
-        type: 'USER_LOGIN',
-        payload: user
-    }
-}
-export const logOutAction = () => {
-    return {
-        type: 'USER_LOGOUT',
-    }
-}
+export const loginAction = (user: object) => ({
+  type: 'USER_LOGIN',
+  payload: user,
+});
+export const logOutAction = () => ({
+  type: 'USER_LOGOUT',
+});

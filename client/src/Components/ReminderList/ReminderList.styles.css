@@ -21,6 +21,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.reminder-list__header__text h1 {
+    color: white;
+}
 .reminder-list__header__buttons {
     width: 100%;
     display: flex;
