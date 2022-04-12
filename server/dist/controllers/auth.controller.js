@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,23 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.logIn = exports.signUp = void 0;
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const user_model_1 = __importDefault(require("../models/user.model"));
-const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+import jwt from 'jsonwebtoken';
+import User from '../models/user.model.js';
+export const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_model_1.default.find({
+        const user = yield User.find({
             username: req.body.username,
         });
         if (user.length > 0) {
             res.send({ error: 'Username taken' });
             return;
         }
-        const newUser = yield user_model_1.default.create({
+        const newUser = yield User.create({
             userId: req.body.id,
             username: req.body.username,
             fname: req.body.fname,
@@ -37,14 +31,13 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.send({ error: error.message });
     }
 });
-exports.signUp = signUp;
-const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_model_1.default.findOne({
+        const user = yield User.findOne({
             username: req.body.username,
         });
         if (user) {
-            const token = jsonwebtoken_1.default.sign(JSON.stringify(user), '1adsa2-asdc4-12');
+            const token = jwt.sign(JSON.stringify(user), '1adsa2-asdc4-12');
             res.send({ user: token });
         }
         else {
@@ -56,4 +49,3 @@ const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send({ error: error.message });
     }
 });
-exports.logIn = logIn;

@@ -1,10 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const Task = new mongoose_1.default.Schema({
+import mongoose from 'mongoose';
+const Task = new mongoose.Schema({
     taskId: { type: String, required: true },
     creatorId: { type: String, required: true },
     category: { type: String, required: true },
@@ -17,5 +12,5 @@ const Task = new mongoose_1.default.Schema({
     deadline: { type: Date, required: false },
     cost: { type: Number, default: 0 },
 }, { collection: 'task-data' });
-const model = mongoose_1.default.model('TaskData', Task);
-exports.default = model;
+const model = mongoose.model('TaskData', Task);
+export default model;

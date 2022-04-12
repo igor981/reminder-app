@@ -1,10 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const SubTask = new mongoose_1.default.Schema({
+import mongoose from 'mongoose';
+const SubTask = new mongoose.Schema({
     subTaskId: { type: String, required: true },
     parentId: { type: String, required: true },
     category: { type: String, required: true },
@@ -15,5 +10,5 @@ const SubTask = new mongoose_1.default.Schema({
     deadline: { type: Date, required: false },
     cost: { type: Number, default: 0 },
 }, { collection: 'subtask-data' });
-const model = mongoose_1.default.model('SubTaskData', SubTask);
-exports.default = model;
+const model = mongoose.model('SubTaskData', SubTask);
+export default model;
