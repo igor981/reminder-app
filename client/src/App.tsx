@@ -13,7 +13,7 @@ import HomeRouter from './Components/HomeRouting';
 import Deleted from './Components/Deleted';
 import Private from './Components/Private';
 
-export const socket: Socket = io('ws://reminderio-backend.herokuapp.com/'); function App() {
+export const socket: Socket = io('https://reminderio-backend.herokuapp.com/'); function App() {
   return (
     <Router>
       <div className="App">

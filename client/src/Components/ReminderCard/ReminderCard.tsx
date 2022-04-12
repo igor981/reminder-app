@@ -161,7 +161,6 @@ function ReminderCard() {
       }
 
       if (!data.error) {
-        console.log(data);
         if (data.creatorId === user.userId) { setOwner(true); }
         dispatch(fetchedReminder(data));
         macroCalculator(data);
