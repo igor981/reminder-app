@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const URL:string = 'http://localhost:3001/reminder/';
+const URL:string = 'https://reminderio-backend.herokuapp.com/reminder/';
 
 export const createReminder = async (
   category: string,

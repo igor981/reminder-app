@@ -2,7 +2,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import jwtDecode from 'jwt-decode';
 
-const URL:string = 'http://localhost:3001/auth/';
+const URL:string = 'https://reminderio-backend.herokuapp.com/auth/';
 export const loginService = async (username: string, password: string) => {
   try {
     const user = await axios.post(`${URL}login`, {
